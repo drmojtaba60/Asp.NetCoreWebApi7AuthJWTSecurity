@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/DotNetCore7AuthorzieJWT/Asp.NetCore7AuthJwt/bin/Debug/net7.0
+/DotNetCore7AuthorzieJWT/Asp.NetCore7AuthJwt/obj
+/DotNetCore7AuthorzieJWT/.vs

@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.Configure<JwtKeyOptions>(builder.Configuration.GetSection("JwtKeyOptions"));
+//builder.Services.Configure<JwtKeyOptions>(builder.Configuration.GetSection("JwtKeyOptions"));
+builder.Services.Configure<JwtKeyOptions>(builder.Configuration.GetSection(nameof(JwtKeyOptions)));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

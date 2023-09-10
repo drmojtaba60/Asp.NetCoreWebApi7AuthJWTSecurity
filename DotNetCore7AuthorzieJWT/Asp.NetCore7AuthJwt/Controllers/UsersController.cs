@@ -3,6 +3,7 @@ using Asp.NetCore7AuthJwt.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,16 +17,15 @@ namespace Asp.NetCore7AuthJwt.Controllers
     {
         // GET: api/<UsersController>
         [Produces("application/json")]
-        [HttpGet]
-        [Authorize]
+        [HttpGet,Authorize]
+      
         public async Task<IActionResult> Get() => Ok(new { data = new List<string> { "value1", "value2" }});
 
 
-        [HttpGet("list2")]
+        [HttpGet("list2"),Authorize]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<string>) )]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize]
         //Error in IActionResult =Task<IActionResult<IEnumerable<string>>>
         public async Task<ActionResult<IEnumerable<string>>> GetList2() => Ok(await Task.FromResult( new List<string> { "user1", "user2" }));
 
@@ -49,10 +49,17 @@ namespace Asp.NetCore7AuthJwt.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize]
-        public string Get(int id)
+        //public string Get(int id)
+        public IActionResult Get(int id)
         {
-            
-            return "value";
+            if(AuthenticationHeaderValue.TryParse(Request.Headers.Authorization, out var authHeaderOptions))
+            {
+                //if(authHeaderOptions.Scheme == "Basic")
+                // authHeaderOptions.Parameter
+                return Ok(authHeaderOptions);
+            }
+
+            return Content("ok");
         }
 
         // POST api/<UsersController>

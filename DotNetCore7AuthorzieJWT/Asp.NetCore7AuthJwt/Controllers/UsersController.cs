@@ -58,7 +58,7 @@ namespace Asp.NetCore7AuthJwt.Controllers
                 // authHeaderOptions.Parameter
                 return Ok(authHeaderOptions);
             }
-
+            
             return Content("ok");
         }
 
